@@ -2,7 +2,7 @@ import React from 'react';
 import './customButtonStyle.scss';
 
 interface Props {
-    type?: 'submit';
+    type?: 'submit'|'button';
     onClick?: () => void;
     isGoogleSignIn?: boolean;
 }
@@ -10,7 +10,6 @@ interface Props {
 const CustomButton: React.FunctionComponent<Props> = ({ children, type, onClick, isGoogleSignIn }) => {
     return (
         <button className={`${isGoogleSignIn ? 'google-sign-in' : ''}  custom-button`} type={type} onClick={onClick}>
-            {console.log('isGoogleSignIn', isGoogleSignIn)}
             {children}
         </button>
     );
