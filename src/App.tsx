@@ -4,11 +4,12 @@ import HomePage from './pages/homePage/homePage';
 import ShopPage from './pages/shopPage';
 import Header from './components/header';
 import SignInAndUp from './pages/signInAndUp';
-import { auth } from './firebase';
+import { auth, createUserProfileDocument } from './firebase';
 
 export interface ICurrentUser {
     displayName?: string | undefined;
     email?: string | undefined;
+    id: string,
 }
 
 
@@ -18,11 +19,14 @@ const  App: React.FunctionComponent = () => {
 
     useEffect(() => {
         //TODO track user
-        const unsubscribeFromAuth = auth.onAuthStateChanged(user => {
+        const unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
             if (user) {
-                setCurrentUser({
-                    displayName: user?.displayName|| '',
-                    email: user?.email || '',
+                const userRef = await createUserProfileDocument(user);
+                userRef?.onSnapshot((snapShot) => {
+                    setCurrentUser({
+                        id: snapShot.id,
+                        ...snapShot.data(),
+                    });
                 });
             } else {
                 setCurrentUser(null);
@@ -30,8 +34,6 @@ const  App: React.FunctionComponent = () => {
         });
         return () => unsubscribeFromAuth();
     }, []);
-
-    console.log('currentUser', currentUser);
 
     return (
         <div>
