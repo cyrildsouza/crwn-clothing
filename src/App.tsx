@@ -1,17 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Switch } from  'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { Route, Switch, Redirect } from  'react-router-dom';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import HomePage from './pages/homePage/homePage';
 import ShopPage from './pages/shopPage';
 import Header from './components/header';
 import SignInAndUp from './pages/signInAndUp';
-import  { ICurrentUser } from './redux/reducer';
+import  { IState } from  './redux/reducer';
 import { auth, createUserProfileDocument } from './firebase';
 
-const  App: React.FunctionComponent = () => {
-    const dispatch = useDispatch();
-    const [currentUser, setCurrentUser] = useState<ICurrentUser|null>(null);
+const mapStateToProps = ({ currentUser }: IState) => ({
+    currentUser,
+});
 
+const  App: React.FunctionComponent = () => {
+    const { currentUser } = useSelector(mapStateToProps, shallowEqual);
+    const dispatch = useDispatch();
+   
     useEffect(() => {
         const unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
             if (user) {
@@ -45,7 +49,7 @@ const  App: React.FunctionComponent = () => {
             <Switch>
                 <Route exact path="/" component={HomePage}/>
                 <Route exact path="/shop" component={ShopPage}/>
-                <Route exact path="/signin" component={SignInAndUp}/>
+                <Route exact path="/signin" render={() => currentUser ? <Redirect to='/' /> : <SignInAndUp /> }/>
             </Switch>
         </div>
     );
