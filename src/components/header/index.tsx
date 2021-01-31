@@ -1,15 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, shallowEqual } from 'react-redux';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
-import  { ICurrentUser } from '../../App';
 import { auth } from '../../firebase';
+import  { IState } from  '../../redux/reducer';
 import './headerStyle.scss';
 
-interface Props {
-    currentUser: ICurrentUser | null;
-}
+const mapStateToProps = ({currentUser}: IState) => ({
+    currentUser,
+});
 
-const Haeder: React.FunctionComponent<Props> = ({ currentUser }) => {
+const Header: React.FunctionComponent = () => {
+    const { currentUser} = useSelector(mapStateToProps, shallowEqual);
+
     return (
         <div className="header">
             <Link to="/">
@@ -31,4 +34,4 @@ const Haeder: React.FunctionComponent<Props> = ({ currentUser }) => {
     ); 
 };
 
-export default Haeder;
+export default Header;
