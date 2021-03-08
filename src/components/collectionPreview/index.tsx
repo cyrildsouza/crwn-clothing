@@ -13,9 +13,9 @@ const CollectionPreview: React.FunctionComponent<Props> = ({ title, items}) => {
         <div className="collection-preview">
             <h1 className="title">{title.toUpperCase()}</h1>
             <div className="preview">
-                {items.filter((item, index) => index < 4).map(({ id, name, imageUrl, price}) => {
+                {items.filter((item, index) => index < 4).map((item) => {
                     return(
-                        <CollectionItem key={id} name={name} price={price} imageUrl={imageUrl}/>
+                        <CollectionItem key={item.id} item={item}/>
                     );
                 })}
             </div>
