@@ -47,6 +47,15 @@ export default (state = initialState, action) => {
             ...state,
             cartItems: newCartItem,
         };
+    case 'REMOVE_CART_ITEM': {
+        const indexOfItem = state.cartItems.findIndex(({ id}) => id === action.data);
+        const newCartItem  = [...state.cartItems];
+        newCartItem.splice(indexOfItem, 1);
+        return {
+            ...state,
+            cartItems: newCartItem,
+        };
+    }    
     default:
         return state;
     }

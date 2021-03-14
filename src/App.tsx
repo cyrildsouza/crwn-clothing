@@ -7,6 +7,7 @@ import Header from './components/header';
 import SignInAndUp from './pages/signInAndUp';
 import  { IState } from  './redux/reducer';
 import { auth, createUserProfileDocument } from './firebase';
+import CheckoutPage from './pages/checkoutPage';
 
 const mapStateToProps = ({ currentUser }: IState) => ({
     currentUser,
@@ -50,6 +51,7 @@ const  App: React.FunctionComponent = () => {
                 <Route exact path="/" component={HomePage}/>
                 <Route exact path="/shop" component={ShopPage}/>
                 <Route exact path="/signin" render={() => currentUser ? <Redirect to='/' /> : <SignInAndUp /> }/>
+                <Route exact path="/checkout" component={CheckoutPage}/>
             </Switch>
         </div>
     );

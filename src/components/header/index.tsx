@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import CartIcon from '../cartIcon';
 import CartDropdown from '../cartDropdown';
