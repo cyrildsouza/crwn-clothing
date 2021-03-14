@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { updateCartItemQuantity } from './utils/cartUtils';
+import { updateCartItemQuantity, removeCartItemQuantity } from './utils/cartUtils';
 
 export interface ICurrentUser {
     displayName?: string | undefined;
@@ -47,15 +47,16 @@ export default (state = initialState, action) => {
             ...state,
             cartItems: newCartItem,
         };
-    case 'REMOVE_CART_ITEM': {
-        const indexOfItem = state.cartItems.findIndex(({ id}) => id === action.data);
-        const newCartItem  = [...state.cartItems];
-        newCartItem.splice(indexOfItem, 1);
+    case 'CLEAR_CART_ITEM': 
         return {
             ...state,
-            cartItems: newCartItem,
+            cartItems: state.cartItems.filter(({ id }) => id !== action.data),
         };
-    }    
+    case 'REMOVE_CART_ITEM': 
+        return {
+            ...state,
+            cartItems: removeCartItemQuantity(state.cartItems, action.data),
+        }; 
     default:
         return state;
     }

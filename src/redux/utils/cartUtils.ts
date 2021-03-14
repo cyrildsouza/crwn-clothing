@@ -16,3 +16,19 @@ export const updateCartItemQuantity = (cartItems: ICartItems[], newItem: ICartIt
     } 
     return [...cartItems, { ...newItem, quantity: 1 }];
 };
+
+export const removeCartItemQuantity = (cartItems: ICartItems[], cartItem: ICartItems) : ICartItems[] => {
+    return cartItems.map(({ id, quantity, ...item }) => {
+        if (id === cartItem.id)
+            return {
+                id,
+                quantity: quantity ? quantity - 1 : 0,
+                ...item,
+            };
+        return {
+            id,
+            quantity,
+            ...item,
+        };
+    }).filter(item => item?.quantity && item.quantity > 0);
+};

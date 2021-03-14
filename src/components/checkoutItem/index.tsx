@@ -19,7 +19,9 @@ const CheckoutItem: React.FC<IProps> = ({ item }) => {
                 {name}
             </span>
             <span className='quantity'>
-                {quantity}
+                <div className='arrow' onClick={() => dispatch({ type: 'REMOVE_CART_ITEM', data: item})}>&#10094;</div>
+                <span className='value'>{quantity}</span>
+                <div className='arrow' onClick={() => dispatch({ type: 'ADD_CART_ITEM', data: item})}>&#10095;</div>
             </span>
             <span className='price'>
                 {price}
@@ -28,7 +30,7 @@ const CheckoutItem: React.FC<IProps> = ({ item }) => {
                 className='remove-button'
                 onClick={() => {
                     dispatch({
-                        type: 'REMOVE_CART_ITEM',
+                        type: 'CLEAR_CART_ITEM',
                         data: id,
                     });
                 }}
