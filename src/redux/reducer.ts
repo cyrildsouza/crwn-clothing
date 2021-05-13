@@ -1,5 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { updateCartItemQuantity, removeCartItemQuantity } from './utils/cartUtils';
+import { persistReducer } from 'redux-persist';
+import storage  from 'redux-persist/lib/storage';
+
+const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist: ['cartItems'],
+};
 
 export interface ICurrentUser {
     displayName?: string | undefined;
@@ -29,7 +37,7 @@ const initialState: IState = {
 
 // eslint-disable-next-line
 // @ts-ignore
-export default (state = initialState, action) => {
+const rootReducer = (state = initialState, action) => {
     switch(action.type) {
     case 'SET_CURRENTUSER': 
         return {
@@ -61,3 +69,5 @@ export default (state = initialState, action) => {
         return state;
     }
 };
+
+export default persistReducer(persistConfig, rootReducer);
