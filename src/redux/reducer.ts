@@ -2,6 +2,7 @@
 import { updateCartItemQuantity, removeCartItemQuantity } from './utils/cartUtils';
 import { persistReducer } from 'redux-persist';
 import storage  from 'redux-persist/lib/storage';
+import SHOP_DATA, { IShop } from './shopData';
 
 const persistConfig = {
     key: 'root',
@@ -23,16 +24,67 @@ export interface ICartItems {
     quantity?: number;
 }
 
+export interface ISection {
+    title: string;
+    imageUrl: string;
+    id: number;
+    linkUrl: string;
+    size?: string;
+}
+
+export interface IDirectory {
+    sections: ISection[];
+}
+
 export interface IState {
     currentUser: ICurrentUser | null;
-    showCartDropdown: boolean,
+    showCartDropdown: boolean;
     cartItems: ICartItems[];
+    directory: IDirectory;
+    shop: IShop,
 }
+
+const INITIAL_DIRECTORY = { sections: [
+    {
+        title: 'hats',
+        imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
+        id: 1,
+        linkUrl: 'shop/hats'
+    },
+    {
+        title: 'jackets',
+        imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
+        id: 2,
+        linkUrl: 'shop/jackets'
+    },
+    {
+        title: 'sneakers',
+        imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
+        id: 3,
+        linkUrl: 'shop/sneakers'
+    },
+    {
+        title: 'womens',
+        imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
+        size: 'large',
+        id: 4,
+        linkUrl: 'shop/womens'
+    },
+    {
+        title: 'mens',
+        imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
+        size: 'large',
+        id: 5,
+        linkUrl: 'shop/mens'
+    }
+]};
 
 const initialState: IState = {
     currentUser: null,
     showCartDropdown: false,
     cartItems: [],
+    directory: INITIAL_DIRECTORY,
+    shop: SHOP_DATA,
 };
 
 // eslint-disable-next-line

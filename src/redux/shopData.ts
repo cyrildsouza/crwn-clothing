@@ -5,17 +5,27 @@ export interface IItems {
     price: number;
 }
 
-export interface IShop {
+export interface IShopItem {
     id: number;
     title: string;
     routeName: string;
     items: IItems[];
 }
 
+export const shopKey = <const> [
+    'hats',
+    'sneakers',
+    'jackets',
+    'womens',
+    'mens',
+];
 
+export type IShop = {
+    [key in typeof shopKey[number]]: IShopItem;
+};
 
-export const SHOP_DATA = [
-    {
+export const SHOP_DATA: IShop = {
+    hats: {
         id: 1,
         title: 'Hats',
         routeName: 'hats',
@@ -76,7 +86,7 @@ export const SHOP_DATA = [
             }
         ]
     },
-    {
+    sneakers: {
         id: 2,
         title: 'Sneakers',
         routeName: 'sneakers',
@@ -131,7 +141,7 @@ export const SHOP_DATA = [
             }
         ]
     },
-    {
+    jackets: {
         id: 3,
         title: 'Jackets',
         routeName: 'jackets',
@@ -168,7 +178,7 @@ export const SHOP_DATA = [
             }
         ]
     },
-    {
+    womens: {
         id: 4,
         title: 'Womens',
         routeName: 'womens',
@@ -217,7 +227,7 @@ export const SHOP_DATA = [
             }
         ]
     },
-    {
+    mens: {
         id: 5,
         title: 'Mens',
         routeName: 'mens',
@@ -260,6 +270,6 @@ export const SHOP_DATA = [
             }
         ]
     }
-];
+};
   
 export default SHOP_DATA;

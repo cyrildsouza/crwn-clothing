@@ -1,16 +1,17 @@
-import React, { useState} from 'react';
-import { SHOP_DATA } from './shopData';
-import CollectionPreview from '../../components/collectionPreview';
-import { IShop } from './shopData';
+import React from 'react';
+import { Route } from 'react-router-dom';
+import CollectionOverview from '../../components/collectionOverview';
+import Category from '../category';
 
-const ShopPage: React.FunctionComponent = () => {
+interface IProps {
+    match: any;
+}
 
-    const [collections, setCollections] = useState<IShop[]>(SHOP_DATA);
+const ShopPage: React.FunctionComponent<IProps>= ({ match }) => {
     return (
         <div className="shop-page">
-            {collections.map(({ id, title, items }) => {
-                return (<CollectionPreview key={id} title={title} items={items}/>);
-            })}
+            <Route exact path={`${match.path}`} component={CollectionOverview} />
+            <Route path={`${match.path}/:category`} component={Category} />
         </div>
     );
 };

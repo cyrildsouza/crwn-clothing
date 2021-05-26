@@ -1,5 +1,5 @@
 import React from 'react';
-import { IItems } from '../../pages/shopPage/shopData';
+import { IItems } from '../../redux/shopData';
 import CollectionItem from '../collectionItem';
 import './collectionPreviewStyle.scss';
 

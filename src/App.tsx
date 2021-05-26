@@ -22,10 +22,6 @@ const  App: React.FunctionComponent = () => {
             if (user) {
                 const userRef = await createUserProfileDocument(user);
                 userRef?.onSnapshot((snapShot) => {
-                    console.log('user', {
-                        id: snapShot.id,
-                        ...snapShot.data(),
-                    });
                     dispatch({
                         type: 'SET_CURRENTUSER',
                         data: {
@@ -49,7 +45,7 @@ const  App: React.FunctionComponent = () => {
             <Header />
             <Switch>
                 <Route exact path="/" component={HomePage}/>
-                <Route exact path="/shop" component={ShopPage}/>
+                <Route path="/shop" component={ShopPage}/>
                 <Route exact path="/signin" render={() => currentUser ? <Redirect to='/' /> : <SignInAndUp /> }/>
                 <Route exact path="/checkout" component={CheckoutPage}/>
             </Switch>

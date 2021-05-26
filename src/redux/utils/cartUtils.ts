@@ -1,7 +1,6 @@
 import { ICartItems } from '../reducer';
 
 export const updateCartItemQuantity = (cartItems: ICartItems[], newItem: ICartItems): ICartItems[] => {
-    console.log('newItem', newItem);
     const cartItemFound = cartItems.find((item) => (item.id === newItem.id));
     if (cartItemFound) {
         return cartItems.map((item) => {

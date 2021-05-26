@@ -1,13 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './menuItemStyle.scss';
 
 interface Props {
     title: string;
     imageUrl: string;
     size?: string;
+    linkUrl: string;
 }
 
-const MenuItem: React.FunctionComponent<Props> = ({ title, imageUrl, size}) => {
+const MenuItem: React.FunctionComponent<Props> = ({ title, imageUrl, size, linkUrl}) => {
     return (
         <div
             className={`${size} menu-item`}>
@@ -16,10 +18,10 @@ const MenuItem: React.FunctionComponent<Props> = ({ title, imageUrl, size}) => {
                     backgroundImage: `url(${imageUrl})`,
                 }}
                 className="background-image"/>
-            <div className="content">
+            <Link to={linkUrl} className="content">
                 <h1 className="title">{title.toUpperCase()}</h1>
                 <span className="subtitle">SHOP NOW</span>
-            </div>
+            </Link>
         </div>
     );
 };
