@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { IState } from '../../redux/reducer';
 import CheckoutItem from '../checkoutItem';
+import StripButton from '../../components/stripe';
 import './checkoutStyle.scss';
 
 const mapStateToProps = ({ cartItems }: IState) => ({
@@ -36,6 +37,7 @@ const Checkout: React.FC = () => {
             <div className='total'>
                 <span>TOTAL: ${itemPriceTotal}</span>
             </div>
+            <StripButton price={itemPriceTotal}/>
         </div>
     );
 };
