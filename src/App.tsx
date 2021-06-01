@@ -6,7 +6,7 @@ import ShopPage from './pages/shopPage';
 import Header from './components/header';
 import SignInAndUp from './pages/signInAndUp';
 import  { IState } from  './redux/reducer';
-import { auth, createUserProfileDocument } from './firebase';
+import { auth, createUserProfileDocument } from './firebase/index';
 import CheckoutPage from './pages/checkoutPage';
 
 const mapStateToProps = ({ currentUser }: IState) => ({
