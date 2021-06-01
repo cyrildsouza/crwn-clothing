@@ -5,7 +5,7 @@ import HomePage from './pages/homePage/homePage';
 import ShopPage from './pages/shopPage';
 import Header from './components/header';
 import SignInAndUp from './pages/signInAndUp';
-import { auth, createUserProfileDocument } from './firebase/index';
+import { auth, createUserProfileDocument } from '/src/firebase/index.js';
 import CheckoutPage from './pages/checkoutPage';
 
 const mapStateToProps = ({ currentUser }) => ({
