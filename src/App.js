@@ -5,15 +5,15 @@ import HomePage from './pages/homePage/homePage';
 import ShopPage from './pages/shopPage';
 import Header from './components/header';
 import SignInAndUp from './pages/signInAndUp';
-import  { IState } from  './redux/reducer';
 import { auth, createUserProfileDocument } from './firebase/index';
 import CheckoutPage from './pages/checkoutPage';
 
-const mapStateToProps = ({ currentUser }: IState) => ({
+const mapStateToProps = ({ currentUser }) => ({
     currentUser,
 });
 
-const  App: React.FunctionComponent = () => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const App = () => {
     const { currentUser } = useSelector(mapStateToProps, shallowEqual);
     const dispatch = useDispatch();
    
