@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, shallowEqual} from 'react-redux';
-import { IState, ICartItems} from '../../redux/reducer';
+import { IState } from '../../redux/reducer';
 import MenuItem from '../menuItem';
 import './directoryStyle.scss';
 

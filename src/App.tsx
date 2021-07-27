@@ -6,7 +6,8 @@ import ShopPage from './pages/shopPage';
 import Header from './components/header';
 import SignInAndUp from './pages/signInAndUp';
 import  { IState } from  './redux/reducer';
-import { auth, createUserProfileDocument } from './firebase/index';
+import { auth, createUserProfileDocument, //addCollectionAndDocuments 
+} from './firebase/index';
 import CheckoutPage from './pages/checkoutPage';
 
 const mapStateToProps = ({ currentUser }: IState) => ({
@@ -39,6 +40,14 @@ const  App: React.FunctionComponent = () => {
         });
         return () => unsubscribeFromAuth();
     }, [dispatch]);
+
+    // useEffect(() => {
+    //     const shopArray = Object.values(shop);
+    //     (async() => {
+    //         await addCollectionAndDocuments('collections', shopArray.map(({ title, items}) => ({ title, items})));
+    //     })();
+        
+    // },[shop]);
 
     return (
         <div>

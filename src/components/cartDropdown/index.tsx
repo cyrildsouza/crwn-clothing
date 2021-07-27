@@ -12,6 +12,7 @@ const mapStateToProps = ({ showCartDropdown, cartItems }: IState) => ({
 });
 
 interface IProps {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     history: any;
 }
 

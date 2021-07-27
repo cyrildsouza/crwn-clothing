@@ -17,6 +17,7 @@ firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) {
         return;
@@ -45,8 +46,40 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     return userRef;
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+    const collectionRef = firestore.collection(collectionKey);
+    const batch = firestore.batch();
+    console.log('obj', objectsToAdd);
+    objectsToAdd.forEach((obj) => {
+        const newDocRef = collectionRef.doc();
+        batch.set(newDocRef, obj);
+    });
+    return await batch.commit();
+};
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const convertCollectionsSnapshotToMap = (collections) => {
+    const transformedCollection = collections.docs.map((doc) => {
+        const { items, title } = doc.data();
+        return {
+            routeName: encodeURI(title.toLowerCase()),
+            id: doc.id,
+            title,
+            items,
+        };
+
+    });
+    console.log('transformedCollection', transformedCollection);
+    return transformedCollection.reduce((accumalator, collection) => {
+        accumalator[collection.title.toLowerCase()] = collection;
+        return accumalator;
+    }, {});
+};
+
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;

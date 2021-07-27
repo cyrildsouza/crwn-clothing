@@ -2,7 +2,7 @@
 import { updateCartItemQuantity, removeCartItemQuantity } from './utils/cartUtils';
 import { persistReducer } from 'redux-persist';
 import storage  from 'redux-persist/lib/storage';
-import SHOP_DATA, { IShop } from './shopData';
+import { IShop } from './shopData';
 
 const persistConfig = {
     key: 'root',
@@ -41,7 +41,7 @@ export interface IState {
     showCartDropdown: boolean;
     cartItems: ICartItems[];
     directory: IDirectory;
-    shop: IShop,
+    shop: IShop | Record<string, never>,
 }
 
 const INITIAL_DIRECTORY = { sections: [
@@ -84,7 +84,7 @@ const initialState: IState = {
     showCartDropdown: false,
     cartItems: [],
     directory: INITIAL_DIRECTORY,
-    shop: SHOP_DATA,
+    shop: {},
 };
 
 // eslint-disable-next-line
@@ -95,6 +95,11 @@ const rootReducer = (state = initialState, action) => {
         return {
             ...state,
             currentUser: action.data,
+        };
+    case 'SET_SHOP': 
+        return {
+            ...state,
+            shop: action.data,
         };
     case 'TOGGLE_CART_DROPDOWN': 
         return {
