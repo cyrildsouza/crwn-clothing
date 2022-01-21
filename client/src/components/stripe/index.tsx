@@ -1,0 +1,43 @@
+import React from 'react';
+import StripeCheckout from 'react-stripe-checkout';
+import axios from 'axios';
+
+interface IProps {
+    price: number;
+}
+
+const StripeButtom: React.FunctionComponent<IProps> = ({ price }) => {
+    const priceForStript = price * 100;
+    const publicStripeKey = 'pk_test_51IvWRYKjdSkJ1iGoq6x9cq0yfX1ZkCmRZ2YGXzulpyTnvywhKcC7RWWV9QHRH1ShmTMpqpTiT1c1NLjuNxhA0pyB00g3IYEhrj';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const onToken = async(token: any) => {
+        console.log(token);
+        const response = await axios({
+            url: 'payment',
+            method: 'post',
+            data: {
+                amount: priceForStript,
+                token,
+            }
+        })
+        console.log('respose', response)
+        alert('Payment Successful');
+    };
+
+    return (
+        <StripeCheckout
+            label="Pay Now"
+            name="CRWN Clothing Ltd."
+            shippingAddress
+            billingAddress
+            image="https://svgshare.com/i/CUz.svg"
+            description={`Your total is $${price}`}
+            amount={priceForStript}
+            panelLabel="Pay Now"
+            token={onToken}
+            stripeKey={publicStripeKey}
+        />);
+};
+
+
+export default StripeButtom;
